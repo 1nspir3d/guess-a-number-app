@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import Colors from '../constans/colors'
 
 export default function Header() {
     return(
@@ -13,7 +14,7 @@ const styles = StyleSheet.create({
     header: {
         borderBottomColor: 'black',
         borderBottomWidth: 2,
-        backgroundColor: 'pink',
+        backgroundColor: `${Colors.primary}`,
         paddingTop: 60,
         paddingBottom: 10,
     },
