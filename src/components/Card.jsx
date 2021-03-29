@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.4,
         backgroundColor: 'white',
         elevation: 22,
-        padding: 10,
+        padding: 20,
         borderRadius: 5,
     },
 });
