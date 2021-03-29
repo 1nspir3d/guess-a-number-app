@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     },
 });
 
-export default function Card({ children }, { style }) {
+export default function Card({ children, style }) {
     return (
         <View style={{ ...styles.inputContainer, ...style }}>
             {children}

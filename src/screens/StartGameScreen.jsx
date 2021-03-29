@@ -18,15 +18,21 @@ const styles = StyleSheet.create({
     inputContainer: {
         maxWidth: 300,
         width: '80%',
+        borderLeftColor: 'black',
+        alignItems: 'center',
+    },
+    input: {
+        textAlign: 'center',
+        width: 150,
     },
     buttonContainer: {
         flexDirection: 'row',
         justifyContent: 'space-around',
+        width: '100%',
     },
     button: {
         width: 100,
     },
-
 });
 
 export default function StartGameScreen() {
@@ -34,7 +40,7 @@ export default function StartGameScreen() {
         <View style={styles.screen}>
             <Text style={styles.screenTitle}>Start a New game!</Text>
             <Card style={styles.inputContainer}>
-                <Input />
+                <Input style={styles.input} keyboardType="numeric" maxLength={2} autoCapitalize="none" autoCorrect={false}  />
                 <View style={styles.buttonContainer}>
                     <View style={styles.button}><Button title="Reset" color={Colors.accent} /></View>
                     <View style={styles.button}><Button title="Confirm" color={Colors.primary} /></View>

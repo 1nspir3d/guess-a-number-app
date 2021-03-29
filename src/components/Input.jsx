@@ -3,17 +3,16 @@ import { TextInput, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
     input: {
-        borderColor: 'black',
         borderBottomWidth: 1,
         borderRadius: 5,
         height: 35,
-        paddingHorizontal: 15,
+        paddingHorizontal: 10,
         marginVertical: 15,
     },
 });
 
-export default function Input({ style }) {
+export default function Input(props) {
     return (
-        <TextInput style={{ ...styles.input, ...style }} />
+        <TextInput {...props} style={{ ...styles.input, ...props.style }} />
     );
 }
