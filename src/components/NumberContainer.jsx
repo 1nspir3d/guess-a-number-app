@@ -1,13 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { useSelector } from 'react-redux';
 
 import Colors from '../constans/colors';
 
 const styles = StyleSheet.create({
     number: {
         color: Colors.primary,
-        fontSize: 25,
+        fontSize: 30,
     },
     numberContainer: {
         borderWidth: 1,
@@ -19,8 +18,7 @@ const styles = StyleSheet.create({
     },
 });
 
-export default function NumberContainer() {
-  const number = useSelector((state) => state.selectedNumberReducer);
+export default function NumberContainer({ number }) {
   return (
     <View style={styles.numberContainer}>
       <Text style={styles.number}>{number}</Text>

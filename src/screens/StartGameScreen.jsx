@@ -9,7 +9,13 @@ import {
   Alert,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { setInput, setSelectedNumber, toggleConfirm } from '../redux/actions';
+import {
+  setInput,
+  setSelectedNumber,
+  toggleConfirm,
+  setRandomNumber,
+  startGame,
+} from '../redux/actions';
 import Card from '../components/Card';
 import Colors from '../constans/colors';
 import Input from '../components/Input';
@@ -55,6 +61,8 @@ const styles = StyleSheet.create({
 export default function StartGameScreen() {
   const input = useSelector((state) => state.inputReducer);
   const isConfirmed = useSelector((state) => state.confirmReducer);
+  const betweenNumbers = useSelector((state) => state.generatedNumbersReducer);
+  const isStarted = useSelector((state) => state.startGameReducer);
   const selectedNumber = useSelector((state) => state.selectedNumberReducer);
   const dispatch = useDispatch();
 
@@ -68,25 +76,44 @@ export default function StartGameScreen() {
   };
 
   const confirmInputHandler = () => {
-    if (parseInt(input, 10).isNaN || input <= 0 || input > 99 || input === selectedNumber) {
+    if (
+      parseInt(input, 10).isNaN
+      || input <= 0
+      || input > 99
+    ) {
       Alert.alert('Invalid number!', 'Only numbers between 1 and 99 allowed!', [
-        { text: 'Okay', style: 'destructive', onPress: () => dispatch(setInput('')) },
+        {
+          text: 'Okay',
+          style: 'destructive',
+          onPress: () => dispatch(setInput('')),
+        },
       ]);
       return;
     }
-    dispatch(toggleConfirm());
+    if (!isConfirmed) {
+      dispatch(toggleConfirm());
+    }
     dispatch(setSelectedNumber(input));
     dispatch(setInput(''));
     Keyboard.dismiss();
   };
 
+  function generateNumber() {
+    const random = Math.floor(Math.random() * 100);
+
+    if (random >= betweenNumbers.lower || random < betweenNumbers.higher) {
+      generateNumber(betweenNumbers);
+    } else {
+      dispatch(setRandomNumber(random));
+    }
+  }
   return (
     <TouchableWithoutFeedback
       onPress={() => {
         Keyboard.dismiss();
       }}
     >
-      <View style={styles.screen}>
+      <View style={{ ...styles.screen, display: `${isStarted ? 'none' : 'flex'}` }}>
         <Text style={styles.screenTitle}>Start a New game!</Text>
         <Card style={styles.inputContainer}>
           <Text>Select a number!</Text>
@@ -120,8 +147,15 @@ export default function StartGameScreen() {
         {isConfirmed && (
           <Card style={styles.numberCard}>
             <Text>You selected:</Text>
-            <NumberContainer />
-            <Button title="START THE GAME" color={Colors.primary} />
+            <NumberContainer number={selectedNumber} />
+            <Button
+              title="START THE GAME"
+              color={Colors.primary}
+              onPress={() => {
+                dispatch(startGame());
+                generateNumber();
+              }}
+            />
           </Card>
         )}
       </View>

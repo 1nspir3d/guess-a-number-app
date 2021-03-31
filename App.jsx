@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import store from './src/redux/reducers';
 import Header from './src/components/Header';
 import StartGameScreen from './src/screens/StartGameScreen';
+import GameScreen from './src/screens/GameScreen';
 
 const styles = StyleSheet.create({
   screen: {
@@ -17,6 +18,7 @@ export default function App() {
       <View style={styles.screen}>
         <Header />
         <StartGameScreen />
+        <GameScreen />
       </View>
     </Provider>
   );

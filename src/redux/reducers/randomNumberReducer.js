@@ -1,6 +1,6 @@
-export default function selectedNumberReducer(state = '', action) {
+export default function randomNumberReducer(state = '', action) {
   switch (action.type) {
-    case 'SET_NUMBER':
+    case 'SET_RANDOM':
       return action.number;
     default:
       return state;
