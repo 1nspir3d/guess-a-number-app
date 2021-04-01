@@ -6,7 +6,7 @@ import Colors from '../constans/colors';
 const styles = StyleSheet.create({
     number: {
         color: Colors.primary,
-        fontSize: 30,
+        fontSize: 50,
     },
     numberContainer: {
         borderWidth: 1,

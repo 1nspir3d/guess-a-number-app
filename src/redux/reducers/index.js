@@ -6,6 +6,7 @@ import generatedNumbersReducer from './generatedNumbersReducer';
 import startGameReducer from './startGameReducer';
 import randomNumberReducer from './randomNumberReducer';
 import winReducer from './winReducer';
+import roundsReducer from './roundsReducer';
 
 const rootReducer = combineReducers({
   inputReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   startGameReducer,
   randomNumberReducer,
   winReducer,
+  roundsReducer,
 });
 
 const store = createStore(rootReducer);

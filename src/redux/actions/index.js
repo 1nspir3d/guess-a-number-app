@@ -46,7 +46,19 @@ export function startGame() {
 }
 
 export function win() {
-    return {
-        type: 'TOGGLE_WIN',
-    };
+  return {
+    type: 'TOGGLE_WIN',
+  };
+}
+
+export function incrementRounds() {
+  return {
+    type: 'INCREMENT',
+  };
+}
+
+export function resetRounds() {
+  return {
+    type: 'RESET',
+  };
 }

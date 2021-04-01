@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
   },
   screenTitle: {
     fontSize: 20,
+    fontFamily: 'reggae-one',
   },
   inputContainer: {
     maxWidth: 300,
@@ -64,6 +65,7 @@ export default function StartGameScreen() {
   const betweenNumbers = useSelector((state) => state.generatedNumbersReducer);
   const isStarted = useSelector((state) => state.startGameReducer);
   const selectedNumber = useSelector((state) => state.selectedNumberReducer);
+  const randomNumber = useSelector((state) => state.randomNumberReducer);
   const dispatch = useDispatch();
 
   const handleTextChange = (text) => {
@@ -72,7 +74,9 @@ export default function StartGameScreen() {
 
   const resetInputText = () => {
     dispatch(setInput(''));
-    dispatch(toggleConfirm());
+    if (isConfirmed) {
+      dispatch(toggleConfirm());
+    }
   };
 
   const confirmInputHandler = () => {
@@ -101,12 +105,15 @@ export default function StartGameScreen() {
   function generateNumber() {
     const random = Math.floor(Math.random() * 100);
 
-    if (random >= betweenNumbers.lower || random < betweenNumbers.higher) {
+    if (random >= betweenNumbers.lower
+      || random < betweenNumbers.higher
+      || random === randomNumber) {
       generateNumber(betweenNumbers);
     } else {
       dispatch(setRandomNumber(random));
     }
   }
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -116,7 +123,7 @@ export default function StartGameScreen() {
       <View style={{ ...styles.screen, display: `${isStarted ? 'none' : 'flex'}` }}>
         <Text style={styles.screenTitle}>Start a New game!</Text>
         <Card style={styles.inputContainer}>
-          <Text>Select a number!</Text>
+          <Text style={{ fontFamily: 'open-sans-bold' }}>Select a number!</Text>
           <Input
             style={styles.input}
             keyboardType="number-pad"
@@ -124,7 +131,7 @@ export default function StartGameScreen() {
             autoCapitalize="none"
             autoCorrect={false}
             onChangeText={handleTextChange}
-            onSubmitEditing={resetInputText}
+            onSubmitEditing={confirmInputHandler}
             value={input}
           />
           <View style={styles.buttonContainer}>
